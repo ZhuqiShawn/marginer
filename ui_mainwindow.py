@@ -1,20 +1,8 @@
 from PySide6.QtCore import Qt
-from PySide6.QtWidgets import (
-    QGridLayout,
-    QGroupBox,
-    QHBoxLayout,
-    QLabel,
-    QListWidget,
-    QPushButton,
-    QSizePolicy,
-    QSlider,
-    QVBoxLayout,
-    QWidget,
-)
 from PySide6.QtSvgWidgets import QSvgWidget
-
-MAIN_WINDOW_WIDTH, MAIN_WINDOW_HEIGHT = 1400, 800
-IMAGE_DISPLAY_WIDTH, IMAGE_DISPLAY_HEIGHT = 800, 600
+from PySide6.QtWidgets import (QGridLayout, QGroupBox, QHBoxLayout, QLabel,
+                               QListWidget, QPushButton, QSizePolicy, QSlider,
+                               QVBoxLayout, QWidget)
 
 
 class Ui_MainWindow(object):
@@ -25,6 +13,7 @@ class Ui_MainWindow(object):
 
         # File manager group
         self.file_explorer_groupbox = QGroupBox("Explorer")
+        self.file_explorer_groupbox.setFixedWidth(330)
         self.file_explorer_listwidget = QListWidget(self)
         self.file_explorer_listwidget.setFixedWidth(300)
         self.file_explorer_layout = QVBoxLayout()
@@ -33,11 +22,8 @@ class Ui_MainWindow(object):
 
         # File manager buttons
         self.file_manager_groupbox = QGroupBox("Add/Remove Files")
-        self.file_manager_groupbox.setMaximumWidth(300)
+        self.file_manager_groupbox.setFixedWidth(330)
         self.file_manager_groupbox.setFixedHeight(70)
-        self.file_manager_groupbox.setSizePolicy(
-            QSizePolicy.Expanding, QSizePolicy.Expanding
-        )
         self.add_file_button = QPushButton("+")
         self.remove_file_button = QPushButton("-")
 
