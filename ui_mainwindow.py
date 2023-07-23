@@ -1,14 +1,61 @@
-from PySide6.QtCore import Qt
+from PySide6.QtCore import QSize, Qt
+from PySide6.QtGui import QAction, QIcon
 from PySide6.QtSvgWidgets import QSvgWidget
 from PySide6.QtWidgets import (QCheckBox, QGridLayout, QGroupBox, QHBoxLayout,
                                QLabel, QListWidget, QMainWindow, QPushButton,
-                               QSizePolicy, QSlider, QVBoxLayout, QWidget)
+                               QSlider, QStatusBar, QToolBar, QVBoxLayout,
+                               QWidget)
 
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow: QMainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName("MainWindow")
+
+        # -------------------------------------------------------------------------
+
+        # Status Bar
+        self.statusbar = QStatusBar()
+        MainWindow.setStatusBar(self.statusbar)
+
+        # -------------------------------------------------------------------------
+
+        # Toolbar
+        self.toolbar = QToolBar("Tool kit")
+        self.toolbar.setIconSize(QSize(25, 25))
+        self.toolbar.setOrientation(Qt.Orientation.Vertical)
+        self.toolbar.setMovable(False)
+        self.toolbar.setFloatable(False)
+
+        self.export_action = QAction(QIcon("assets/icons/export.svg"), "Export")
+        self.save_action = QAction(QIcon("assets/icons/save.svg"), "Save current change")
+        self.undo_action = QAction(QIcon("assets/icons/undo.svg"), "Undo")
+        self.redo_action = QAction(QIcon("assets/icons/redo.svg"), "Redo")
+        self.rotate_clk_action = QAction(
+            QIcon("assets/icons/rotate-clockwise.svg"), "Rotate Clockwise"
+        )
+        self.rotate_aclk_action = QAction(
+            QIcon("assets/icons/rotate-anticlockwise.svg"), "Rotate Anticlockwise"
+        )
+        self.flip_v_action = QAction(
+            QIcon("assets/icons/flip-vertical.svg"), "Vertical Flip"
+        )
+        self.flip_h_action = QAction(
+            QIcon("assets/icons/flip-horizontal.svg"), "Horizontal Flip"
+        )
+
+        self.toolbar.addAction(self.export_action)
+        self.toolbar.addSeparator()
+        self.toolbar.addAction(self.save_action)
+        self.toolbar.addAction(self.undo_action)
+        self.toolbar.addAction(self.redo_action)
+        self.toolbar.addSeparator()
+        self.toolbar.addAction(self.rotate_clk_action)
+        self.toolbar.addAction(self.rotate_aclk_action)
+        self.toolbar.addAction(self.flip_v_action)
+        self.toolbar.addAction(self.flip_h_action)
+        MainWindow.addToolBar(Qt.ToolBarArea.RightToolBarArea, self.toolbar)
+
         # -------------------------------------------------------------------------
 
         # File manager group
@@ -24,8 +71,10 @@ class Ui_MainWindow(object):
         self.file_manager_groupbox = QGroupBox("Add/Remove Files")
         self.file_manager_groupbox.setFixedWidth(330)
         self.file_manager_groupbox.setFixedHeight(70)
-        self.add_file_button = QPushButton("+")
-        self.remove_file_button = QPushButton("-")
+        self.add_file_button = QPushButton("Add Files")
+        self.add_file_button.setIcon(QIcon("assets/icons/file-plus.svg"))
+        self.remove_file_button = QPushButton("Remove Files")
+        self.remove_file_button.setIcon(QIcon("assets/icons/file-minus.svg"))
 
         self.file_manager_layout = QHBoxLayout()
         self.file_manager_layout.setAlignment(Qt.AlignmentFlag.AlignLeft)
@@ -141,4 +190,4 @@ class Ui_MainWindow(object):
         # Central widget
         widget = QWidget(self)
         widget.setLayout(main_window_layout)
-        self.setCentralWidget(widget)
+        MainWindow.setCentralWidget(widget)
